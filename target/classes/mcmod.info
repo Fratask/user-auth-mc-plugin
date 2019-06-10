@@ -1,0 +1,12 @@
+[
+    {
+        "modid": "user-auth",
+        "name": "userAuth",
+        "dependencies": [
+            "spongeapi@7.1.0"
+        ],
+        "requiredMods": [
+            "spongeapi@7.1.0"
+        ]
+    }
+]
