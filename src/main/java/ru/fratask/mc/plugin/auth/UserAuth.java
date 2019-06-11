@@ -2,6 +2,7 @@ package ru.fratask.mc.plugin.auth;
 
 import com.google.inject.Inject;
 import org.slf4j.Logger;
+import org.spongepowered.api.data.value.mutable.Value;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
@@ -9,6 +10,8 @@ import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
+
+import java.time.Instant;
 
 @Plugin(id = "user-auth", name = "userAuth")
 public class UserAuth {
@@ -26,6 +29,7 @@ public class UserAuth {
     @Listener
     public void onPlayerJoin(ClientConnectionEvent.Join event){
         Player player = event.getTargetEntity();
+        Value<Instant> lastPlayed = player.lastPlayed();
         if (!player.hasPlayedBefore()){
             //First play
             event.setMessageCancelled(true);
@@ -35,7 +39,7 @@ public class UserAuth {
             event.setMessageCancelled(true);
             player.sendMessage(Text.of(TextColors.GREEN, "Hello, ", TextColors.YELLOW, player.getName(), TextColors.GREEN, "!"));
         }
-        logger.info("Player " + player.getName() + " has joined! LAST_JOIN: " + player.lastPlayed().toString());
+        logger.info("Player " + player.getName() + " has joined! LAST_JOIN: " + lastPlayed.toString());
     }
 
     @Listener
