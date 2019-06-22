@@ -44,8 +44,6 @@ public class UserAuth {
 
     @Listener
     public void onPlayerLeft(ClientConnectionEvent.Disconnect event) {
-        Player player = event.getTargetEntity();
-
         event.setMessageCancelled(true);
     }
 
